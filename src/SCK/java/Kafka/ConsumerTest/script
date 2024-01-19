@@ -1,0 +1,20 @@
+# 로컬에 kafka 설치(Open Source) - version 2.13-2.8.0
+
+** 필수 **
+1. 주키퍼 서버와 카스카 서버 실행
+# kafka_2.13-2.8.0> bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+# kafka_2.13-2.8.0> bin\windows\kafka-server-start.bat config\server.properties
+
+2. 토픽 생성
+# kafka-topics.bat --create --topic test --bootstrap-server localhost:9092
+
+--------------------------------------------------------------------------------
+** 결과 보는 법 **
+
+1. 세부 결과를 보고 싶을 때(vscode환경, python언어)
+# pip install kafka-python 설치
+# 이후 *Consumer.py* 파일 실행
+
+
+2. Consumer 확인 방법 (터미널) - value값만 확인 가능
+# bin/windows/kafka-console-consumer.sh --topic test --from-beginning --bootstrap-server localhost:9092

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/SCKCDP2.iml" filepath="$PROJECT_DIR$/.idea/SCKCDP2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gatling-java-api.iml" filepath="$PROJECT_DIR$/gatling-java-api.iml" />
     </modules>
   </component>
 </project>

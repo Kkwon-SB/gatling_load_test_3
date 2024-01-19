@@ -1,4 +1,4 @@
-package SDK_TEST;
+package LoadGenerator;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
-public class ExampleFeederJson2 extends Simulation {
+public class Basic extends Simulation {
     private String[] eventNames = {"evt_user_properties_c:user_age", "evt_user_properties_c:user_gender", "evt_group", "common_a_region", "evt_param_screen_name", "evt_param_sku_count", "evt_param_page_type", "evt_user_properties_c:nick_name", "evt_user_properties_c:push_yn", "evt_user_properties_c:promotion_event_push_yn", "perties_c:user_gender"}; // 세 가지 이벤트 명을 가진 배열
     private Random rand = new Random();
     private Supplier<String> randomValue = () -> RandomStringUtils.randomAlphanumeric(8);
