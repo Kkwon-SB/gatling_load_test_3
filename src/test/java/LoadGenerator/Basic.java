@@ -16,13 +16,15 @@ import java.util.stream.Stream;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
+import static io.gatling.javaapi.http.HttpDsl.status;
+
 public class Basic extends Simulation {
     private String[] eventNames = {"evt_user_properties_c:user_age", "evt_user_properties_c:user_gender", "evt_group", "common_a_region", "evt_param_screen_name", "evt_param_sku_count", "evt_param_page_type", "evt_user_properties_c:nick_name", "evt_user_properties_c:push_yn", "evt_user_properties_c:promotion_event_push_yn", "perties_c:user_gender"}; // 세 가지 이벤트 명을 가진 배열
     private Random rand = new Random();
     private Supplier<String> randomValue = () -> RandomStringUtils.randomAlphanumeric(8);
     private ObjectMapper objectMapper = new ObjectMapper();
     private HttpProtocolBuilder httpProtocol = http
-            .baseUrl("http://localhost:5000/starducks")
+            .baseUrl("http://localhost:7955")
             .acceptHeader("application/json")
             .contentTypeHeader("application/json");
 
@@ -35,6 +37,7 @@ public class Basic extends Simulation {
 
         return LocalDateTime.now().minusDays(days).minusHours(hours).minusMinutes(minutes).minusSeconds(seconds);
     }
+
     private String getEventParamMap(String eventName) throws JsonProcessingException {
         Map<String, String> paramMap = new HashMap<>();
         switch (eventName) {
@@ -72,6 +75,7 @@ public class Basic extends Simulation {
         }
         return this.objectMapper.writeValueAsString(paramMap);
     }
+
     private Iterator<Map<String, Object>> customFeeder =
             Stream.generate((Supplier<Map<String, Object>>) () -> {
 
@@ -82,7 +86,7 @@ public class Basic extends Simulation {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-                System.out.println(eventParamString);
+//                System.out.println(eventParamString);
                 HashMap<String, Object> hmap = new HashMap<>();
                 hmap.put("adid", randomValue.get());
                 hmap.put("gaid", randomValue.get());
@@ -120,58 +124,53 @@ public class Basic extends Simulation {
                 return hmap;
             }).iterator();
 
-    private ChainBuilder createuser =
-            feed(customFeeder)
-                    .exec(http("Send User's Info")
-                            .post("/user_order")
-                            .header("Content-Type", "application/json")
-                            .body(StringBody(
-                                    "{"
-                                            + "\"adid\": \"${adid}\","
-                                            + "\"gaid\": \"${gaid}\","
-                                            + "\"idfa\": \"${idfa}\","
-                                            + "\"idfv\": \"${idfv}\","
-                                            + "\"ad_id_opt_out\": ${ad_id_opt_out},"
-                                            + "\"os\": \"${os}\","
-                                            + "\"model\": \"${model}\","
-                                            + "\"vendor\": \"${vendor}\","
-                                            + "\"resolution\": \"${resolution}\","
-                                            + "\"is_portrait\": ${is_portrait},"
-                                            + "\"platform\": \"${platform}\","
-                                            + "\"network\": \"${network}\","
-                                            + "\"is_wifi_only\": ${is_wifi_only},"
-                                            + "\"carrier\": \"${carrier}\","
-                                            + "\"language\": \"${language}\","
-                                            + "\"country\": \"${country}\","
-                                            + "\"build_id\": \"${build_id}\","
-                                            + "\"package_name\": \"${package_name}\","
-                                            + "\"appkey\": \"${appkey}\","
-                                            + "\"sdk_version\": \"${sdk_version}\","
-                                            + "\"installer\": \"${installer}\","
-                                            + "\"app_version\": \"${app_version}\","
-                                            + "\"event_name\": \"${event_name}\","
-                                            + "\"group\": \"${group}\","
-                                            + "\"event_datetime\": \"${event_datetime}\","
-                                            + "\"event_timestamp\": ${event_timestamp},"
-                                            + "\"event_timestamp_d\": ${event_timestamp_d},"
-                                            + "\"event_datetime_kst\": \"${event_datetime_kst}\","
-                                            + "\"event_timestamp_kst\": ${event_timestamp_kst},"
-                                            + "\"event_timestamp_d_kst\": ${event_timestamp_d_kst},"
-                                            + "\"abx:order_id\": \"${abx:order_id}\","
-                                            + "\"abx:order_sales\": ${abx:order_sales},"
-                                            + "\"event_param\": ${event_param}"
-                                            + "}")).asJson());
-
     private ScenarioBuilder scn = scenario("Starducks User Info Sending Simulation")
-            .exec(createuser)
-            .repeat(5).on(
-                    exec(createuser)
-                            .pause(1)
+            .feed(customFeeder)
+            .exec(http("Send User's Info")
+                    .post("/postback/event")
+                    .header("Content-Type", "application/json")
+                    .body(StringBody(
+                            "{"
+                                    + "\"adid\": \"${adid}\","
+                                    + "\"gaid\": \"${gaid}\","
+                                    + "\"idfa\": \"${idfa}\","
+                                    + "\"idfv\": \"${idfv}\","
+                                    + "\"ad_id_opt_out\": \"${ad_id_opt_out}\","
+                                    + "\"os\": \"${os}\","
+                                    + "\"model\": \"${model}\","
+                                    + "\"vendor\": \"${vendor}\","
+                                    + "\"resolution\": \"${resolution}\","
+                                    + "\"is_portrait\": \"${is_portrait}\","
+                                    + "\"platform\": \"${platform}\","
+                                    + "\"network\": \"${network}\","
+                                    + "\"is_wifi_only\": \"${is_wifi_only}\","
+                                    + "\"carrier\": \"${carrier}\","
+                                    + "\"language\": \"${language}\","
+                                    + "\"country\": \"${country}\","
+                                    + "\"build_id\": \"${build_id}\","
+                                    + "\"package_name\": \"${package_name}\","
+                                    + "\"appkey\": \"${appkey}\","
+                                    + "\"sdk_version\": \"${sdk_version}\","
+                                    + "\"installer\": \"${installer}\","
+                                    + "\"app_version\": \"${app_version}\","
+                                    + "\"event_name\": \"${event_name}\","
+                                    + "\"group\": \"${group}\","
+                                    + "\"event_datetime\": \"${event_datetime}\","
+                                    + "\"event_timestamp\": \"${event_timestamp}\","
+                                    + "\"event_timestamp_d\": \"${event_timestamp_d}\","
+                                    + "\"event_datetime_kst\": \"${event_datetime_kst}\","
+                                    + "\"event_timestamp_kst\": \"${event_timestamp_kst}\","
+                                    + "\"event_timestamp_d_kst\": \"${event_timestamp_d_kst}\","
+                                    + "\"order_id\": \"${abx:order_id}\","
+                                    + "\"order_sales\": \"${abx:order_sales}\","
+                                    + "\"param_json\": ${event_param}"
+                                    + "}")
+                    ).asJson().check(status().is(200))
             );
 
     {
         setUp(
-                scn.injectOpen(atOnceUsers(1))
+                scn.injectOpen(atOnceUsers(100))
         ).protocols(httpProtocol);
     }
 }
