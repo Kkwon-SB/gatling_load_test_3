@@ -1,0 +1,7 @@
+# Flask를 통한 Gatling 송 수신 확인
+
+** 결과 **
+
+1. Flask를 톨한 서버 수신 확인(vscode환경, python언어)
+# pip install flask 설치
+# 이후 *flask.py* 파일 실행
