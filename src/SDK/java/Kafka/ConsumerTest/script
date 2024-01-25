@@ -18,8 +18,3 @@
 
 2. Consumer 확인 방법 (터미널) - value값만 확인 가능
 # bin/windows/kafka-console-consumer.sh --topic test --from-beginning --bootstrap-server localhost:9092
-
-
-
-
-test messeage
