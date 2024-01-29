@@ -171,9 +171,9 @@ public class UserEvent extends Simulation {
                 return hmap;
             }).iterator();
 
-    private ScenarioBuilder scn = scenario("Starducks User Info Sending Simulation")
+    private ScenarioBuilder scn = scenario("Starducks User's Event Info Sending Simulation")
             .feed(customFeeder)
-            .exec(http("Send User's Info")
+            .exec(http("Send User's Event Info")
                     .post("/postback/event")
                     .header("Content-Type", "application/json")
                     .body(StringBody(
