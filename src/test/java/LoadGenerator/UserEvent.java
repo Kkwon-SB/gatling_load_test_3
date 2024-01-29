@@ -20,7 +20,7 @@ import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
-public class getUserEvent extends Simulation {
+public class UserEvent extends Simulation {
     private String[] eventNames = {"Main_BottomNavigation", "Home_imp", "Order_category_imp", "order_subcategory", "order_category_selectsku", "home_notice_close", "order_detail_sirenorder", "abx:purchase", "Home_orderstatus_imp", "order_category_back"};
     private Random rand = new Random();
     int randomInt = this.rand.nextInt(100);
