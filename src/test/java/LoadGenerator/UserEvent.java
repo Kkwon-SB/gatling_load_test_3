@@ -21,7 +21,7 @@ import static io.gatling.javaapi.http.HttpDsl.http;
 import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class UserEvent extends Simulation {
-    private String[] eventNames = {"Main_BottomNavigation", "Home_imp", "Order_category_imp", "order_subcategory", "order_category_selectsku", "home_notice_close", "order_detail_sirenorder", "abx:purchase", "Home_orderstatus_imp", "order_category_back"};
+    private String[] eventNames = {"main_BottomNavigation", "home_imp", "order_category_imp", "order_subcategory", "order_category_selectsku", "home_notice_close", "order_detail_sirenorder", "abx:purchase", "home_orderstatus_imp", "order_category_back"};
     private Random rand = new Random();
     int randomInt = this.rand.nextInt(100);
     private Supplier<String> randomValue = () -> RandomStringUtils.randomAlphanumeric(8);
@@ -46,79 +46,78 @@ public class UserEvent extends Simulation {
 
         switch (eventName) {
 
-            case "Main_BottomNavigation":
-                paramMap.put("event_name","Main_BottomNavigation");
+            case "main_bottomnavigation":
                 paramMap.put("page_type", randomValue.get());
-                paramMap.put("screen_name", randomValue.get());
+                paramMap.put("screen_name", "main");
                 break;
 
-            case "Home_imp":
-                paramMap.put("event_name", "Home_imp");
+            case "home_imp":
                 paramMap.put("Seq", String.valueOf(randomInt - randomInt % 10));
                 paramMap.put("content_id", String.valueOf(randomInt - randomInt % 10));
                 paramMap.put("content_name", randomValue.get());
+                paramMap.put("screen_name", "home");
                 break;
 
-            case "Order_category_imp":
-                paramMap.put("event_name", "Order_category_imp");
+            case "order_category_imp":
                 paramMap.put("main_category", rand.nextBoolean() ? "음료" : "푸드");
                 paramMap.put("sub_category", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("screen_name", "order_category");
                 break;
 
             case "order_subcategory":
-                paramMap.put("event_name", "order_subcategory");
                 paramMap.put("sub_category", randomValue.get());
-                paramMap.put("Sub_category_no", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("Non_member_yn", rand.nextBoolean() ? "Y" : "N");
-                paramMap.put("Green_dot_yn", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("sub_category_no", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("non_member_yn", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("green_dot_yn", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("screen_name","order");
                 break;
 
             case "order_category_selectsku":
-                paramMap.put("event_name", "order_category_selectsku");
                 paramMap.put("sku_name", randomValue.get());
+                paramMap.put("screen_name", "order_category");
                 break;
 
             case "home_notice_close":
-                paramMap.put("event_name", "home_notice_close");
-                paramMap.put("Content_name", randomValue.get());
+                paramMap.put("content_name", randomValue.get());
+                paramMap.put("screen_name", "home_notice");
                 break;
 
             case "order_detail_sirenorder":
-                paramMap.put("event_name", "order_detail_sirenorder");
                 paramMap.put("sku_name", randomValue.get());
                 paramMap.put("sku_no", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("screen_name", "order_detail");
                 break;
 
             case "abx:purchase":
-                paramMap.put("event_name", "abx:purchase");
-                paramMap.put("Skuinfo", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("Qty", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("ReceiveData", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(randomDateTime()));
-                paramMap.put("ReceiveStore", randomValue.get());
-                paramMap.put("PatmentType", rand.nextBoolean() ? "card" : "cash");
-                paramMap.put("PaymentPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("UsedCoupon", rand.nextBoolean() ? "Y" : "N");
-                paramMap.put("UsedCouponPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("UsedGift", rand.nextBoolean() ? "Y" : "N");;
-                paramMap.put("UsedGiftPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("OrderPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("DiscountType", rand.nextBoolean() ? "Y" : "N");
-                paramMap.put("DiscountPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("TotalOrderPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("ReceipYN", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("skuinfo", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("qty", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("receiveData", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(randomDateTime()));
+                paramMap.put("receiveStore", randomValue.get());
+                paramMap.put("patmentType", rand.nextBoolean() ? "card" : "cash");
+                paramMap.put("paymentPrice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("usedCoupon", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("usedCouponPrice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("usedGift", rand.nextBoolean() ? "Y" : "N");;
+                paramMap.put("usedGiftPrice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("orderPrice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("discountType", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("discountPrice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("totalOrderPrice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("receipYN", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("screen_name", "order_payment_orderconfirm");
                 break;
 
-            case "Home_orderstatus_imp":
-                paramMap.put("event_name", "Home_orderstatus_imp");
+            case "home_orderstatus_imp":
                 paramMap.put("order_type", rand.nextBoolean() ? "매장" : "차량");
-                paramMap.put("Store_name", randomValue.get());
+                paramMap.put("store_name", randomValue.get());
                 paramMap.put("eating_type", rand.nextBoolean() ? "매장" : "포장");
+                paramMap.put("screen_name", "home_orderstatus");
                 break;
 
             case "order_category_back":
-                paramMap.put("event_name", "order_category_back");
                 paramMap.put("main_category", rand.nextBoolean() ? "음료" : "푸드");
                 paramMap.put("sub_category", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("screen_name", "order_category");
                 break;
         }
         return this.objectMapper.writeValueAsString(paramMap);
@@ -136,25 +135,88 @@ public class UserEvent extends Simulation {
                 }
                 System.out.println(eventParamString);
                 HashMap<String, Object> hmap = new HashMap<>();
+                hmap.put("adid", randomValue.get());
+                hmap.put("gaid", randomValue.get());
+                hmap.put("idfa", randomValue.get());
+                hmap.put("idfv", randomValue.get());
+                hmap.put("ad_id_opt_out", rand.nextBoolean());
+                hmap.put("os", "Android " + rand.nextInt(10));
+                hmap.put("model", randomValue.get());
+                hmap.put("vendor", randomValue.get());
+                hmap.put("resolution", rand.nextInt(1920) + "x" + rand.nextInt(1080));
+                hmap.put("is_portrait", rand.nextBoolean());
+                hmap.put("platform", rand.nextBoolean() ? "Android" : "iOS");
+                hmap.put("network", rand.nextBoolean() ? "Wi-Fi" : "Cellular");
+                hmap.put("is_wifi_only", rand.nextBoolean());
+                hmap.put("carrier", randomValue.get());
+                hmap.put("language", randomValue.get());
+                hmap.put("country", randomValue.get());
+                hmap.put("build_id", randomValue.get());
+                hmap.put("package_name", randomValue.get());
+                hmap.put("appkey", randomValue.get());
+                hmap.put("sdk_version", randomValue.get());
+                hmap.put("installer", randomValue.get());
+                hmap.put("app_version", rand.nextInt(10) + "." + rand.nextInt(10) + "." + rand.nextInt(10));
+                hmap.put("event_name", eventName);
+                hmap.put("group", randomValue.get());
+                hmap.put("event_datetime", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(randomDateTime()));
+                hmap.put("event_timestamp", System.currentTimeMillis());
+                hmap.put("event_timestamp_d", System.currentTimeMillis());
+                hmap.put("event_datetime_kst", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(randomDateTime()));
+                hmap.put("event_timestamp_kst", System.currentTimeMillis());
+                hmap.put("event_timestamp_d_kst", System.currentTimeMillis());
+                hmap.put("abx:order_id", randomValue.get());
+                hmap.put("abx:order_sales", rand.nextInt(100) * 100);
                 hmap.put("event_param", eventParamString);
                 return hmap;
             }).iterator();
 
     private ScenarioBuilder scn = scenario("Starducks User Info Sending Simulation")
-
             .feed(customFeeder)
             .exec(http("Send User's Info")
                     .post("/postback/event")
                     .header("Content-Type", "application/json")
                     .body(StringBody(
-                            "{"
-                                    + "\"Data\": #{event_param}"
-                                    + "}")
+                            "\n\n{"
+                                    + "\"adid\": \"#{adid}\","
+                                    + "\"gaid\": \"#{gaid}\","
+                                    + "\"idfa\": \"#{idfa}\","
+                                    + "\"idfv\": \"#{idfv}\","
+                                    + "\"ad_id_opt_out\": \"#{ad_id_opt_out}\","
+                                    + "\"os\": \"#{os}\","
+                                    + "\"model\": \"#{model}\","
+                                    + "\"vendor\": \"#{vendor}\","
+                                    + "\"resolution\": \"#{resolution}\","
+                                    + "\"is_portrait\": \"#{is_portrait}\","
+                                    + "\"platform\": \"#{platform}\","
+                                    + "\"network\": \"#{network}\","
+                                    + "\"is_wifi_only\": \"#{is_wifi_only}\","
+                                    + "\"carrier\": \"#{carrier}\","
+                                    + "\"language\": \"#{language}\","
+                                    + "\"country\": \"#{country}\","
+                                    + "\"build_id\": \"#{build_id}\","
+                                    + "\"package_name\": \"#{package_name}\","
+                                    + "\"appkey\": \"#{appkey}\","
+                                    + "\"sdk_version\": \"#{sdk_version}\","
+                                    + "\"installer\": \"#{installer}\","
+                                    + "\"app_version\": \"#{app_version}\","
+                                    + "\"event_name\": \"#{event_name}\","
+                                    + "\"group\": \"#{group}\","
+                                    + "\"event_datetime\": \"#{event_datetime}\","
+                                    + "\"event_timestamp\": \"#{event_timestamp}\","
+                                    + "\"event_timestamp_d\": \"#{event_timestamp_d}\","
+                                    + "\"event_datetime_kst\": \"#{event_datetime_kst}\","
+                                    + "\"event_timestamp_kst\": \"#{event_timestamp_kst}\","
+                                    + "\"event_timestamp_d_kst\": \"#{event_timestamp_d_kst}\","
+                                    + "\"order_id\": \"#{abx:order_id}\","
+                                    + "\"order_sales\": \"#{abx:order_sales}\","
+                                    + "\"event_param\": #{event_param}"
+                                    + "}\n\n")
                     ).asJson().check(status().is(200))
             );
     {
         setUp(
-                scn.injectOpen(atOnceUsers(10))
+                scn.injectOpen(atOnceUsers(5))
         ).protocols(httpProtocol);
     }
 }
