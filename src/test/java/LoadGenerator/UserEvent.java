@@ -52,14 +52,14 @@ public class UserEvent extends Simulation {
                 break;
 
             case "home_imp":
-                paramMap.put("Seq", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("seq", String.valueOf(randomInt - randomInt % 10));
                 paramMap.put("content_id", String.valueOf(randomInt - randomInt % 10));
                 paramMap.put("content_name", randomValue.get());
                 paramMap.put("screen_name", "home");
                 break;
 
             case "order_category_imp":
-                paramMap.put("main_category", rand.nextBoolean() ? "음료" : "푸드");
+                paramMap.put("main_category", rand.nextBoolean() ? "Drink" : "Food");
                 paramMap.put("sub_category", rand.nextBoolean() ? "Y" : "N");
                 paramMap.put("screen_name", "order_category");
                 break;
@@ -91,31 +91,31 @@ public class UserEvent extends Simulation {
             case "abx:purchase":
                 paramMap.put("skuinfo", String.valueOf(randomInt - randomInt % 10));
                 paramMap.put("qty", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("receiveData", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(randomDateTime()));
-                paramMap.put("receiveStore", randomValue.get());
-                paramMap.put("patmentType", rand.nextBoolean() ? "card" : "cash");
-                paramMap.put("paymentPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("usedCoupon", rand.nextBoolean() ? "Y" : "N");
-                paramMap.put("usedCouponPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("usedGift", rand.nextBoolean() ? "Y" : "N");;
-                paramMap.put("usedGiftPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("orderPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("discountType", rand.nextBoolean() ? "Y" : "N");
-                paramMap.put("discountPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("totalOrderPrice", String.valueOf(randomInt - randomInt % 10));
-                paramMap.put("receipYN", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("receivedata", DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(randomDateTime()));
+                paramMap.put("receivestore", randomValue.get());
+                paramMap.put("patmenttype", rand.nextBoolean() ? "Card" : "Cash");
+                paramMap.put("paymentprice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("usedcoupon", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("usedcouponprice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("usedgift", rand.nextBoolean() ? "Y" : "N");;
+                paramMap.put("usedgiftprice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("orderprice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("discounttype", rand.nextBoolean() ? "Y" : "N");
+                paramMap.put("discountprice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("totalorderprice", String.valueOf(randomInt - randomInt % 10));
+                paramMap.put("receipyn", rand.nextBoolean() ? "Y" : "N");
                 paramMap.put("screen_name", "order_payment_orderconfirm");
                 break;
 
             case "home_orderstatus_imp":
-                paramMap.put("order_type", rand.nextBoolean() ? "매장" : "차량");
+                paramMap.put("order_type", rand.nextBoolean() ? "At store" : "Drive-thru");
                 paramMap.put("store_name", randomValue.get());
-                paramMap.put("eating_type", rand.nextBoolean() ? "매장" : "포장");
+                paramMap.put("eating_type", rand.nextBoolean() ? "For here" : "To go");
                 paramMap.put("screen_name", "home_orderstatus");
                 break;
 
             case "order_category_back":
-                paramMap.put("main_category", rand.nextBoolean() ? "음료" : "푸드");
+                paramMap.put("main_category", rand.nextBoolean() ? "Drink" : "Food");
                 paramMap.put("sub_category", rand.nextBoolean() ? "Y" : "N");
                 paramMap.put("screen_name", "order_category");
                 break;
@@ -145,7 +145,7 @@ public class UserEvent extends Simulation {
                 hmap.put("vendor", randomValue.get());
                 hmap.put("resolution", rand.nextInt(1920) + "x" + rand.nextInt(1080));
                 hmap.put("is_portrait", rand.nextBoolean());
-                hmap.put("platform", rand.nextBoolean() ? "Android" : "iOS");
+                hmap.put("platform", rand.nextBoolean() ? "Android" : "Ios");
                 hmap.put("network", rand.nextBoolean() ? "Wi-Fi" : "Cellular");
                 hmap.put("is_wifi_only", rand.nextBoolean());
                 hmap.put("carrier", randomValue.get());
