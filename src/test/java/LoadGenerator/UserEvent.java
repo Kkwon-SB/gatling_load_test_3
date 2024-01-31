@@ -140,7 +140,7 @@ public class UserEvent extends Simulation {
                 hmap.put("idfa", randomValue.get());
                 hmap.put("idfv", randomValue.get());
                 hmap.put("ad_id_opt_out", rand.nextBoolean());
-                hmap.put("os", "Android " + rand.nextInt(10));
+                hmap.put("os", "android " + rand.nextInt(10));
                 hmap.put("model", randomValue.get());
                 hmap.put("vendor", randomValue.get());
                 hmap.put("resolution", rand.nextInt(1920) + "x" + rand.nextInt(1080));

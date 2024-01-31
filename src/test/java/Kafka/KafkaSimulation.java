@@ -15,7 +15,7 @@ public class KafkaSimulation extends Simulation{
     public static final String URL_REGISTRY = System.getProperty("URL_REGISTRY", "");
     public static final String USER_AUTH = System.getProperty("USER_AUTH", "");
     private final KafkaProtocolBuilder kafkaProtocol = kafka()
-            .topic("test2")
+            .topic("test_topic")
             .properties(
                     Map.of(
                             ProducerConfig.ACKS_CONFIG, "1",
