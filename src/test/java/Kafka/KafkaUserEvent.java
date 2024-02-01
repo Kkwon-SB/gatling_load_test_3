@@ -148,7 +148,7 @@ public class KafkaUserEvent extends Simulation {
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
-                System.out.println("이벤트 파람 스트링-----" + eventParamString);
+                System.out.println("이벤트 파람 스트링-----" + eventParamString); //확인용
                 HashMap<String, Object> hmap = new HashMap<>();
                 hmap.put("adid", randomValue.get());
                 hmap.put("gaid", randomValue.get());
