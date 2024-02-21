@@ -1,5 +1,3 @@
-package LoadGenerator;
-
 import io.gatling.javaapi.core.ScenarioBuilder;
 import io.gatling.javaapi.core.Simulation;
 import io.gatling.javaapi.http.HttpProtocolBuilder;
@@ -53,7 +51,8 @@ public class OrderTable extends Simulation {
             //변수들의 이름, 값, 범위는 실시간 주문 데이터_샘플(Data1000)파일을 참고했습니다.
 
             Stream.generate((Supplier<Map<String, Object>>) () -> {
-                String ranSkuCode = String.format(String.valueOf(rand.nextInt((3)+1)));
+//                String skuCode = String.format("%018d", rand.nextInt((int) 10000000000000L));
+                String ranSkuCode = String.format(String.valueOf(rand.nextInt((3)+1))); //SkuCode 범위를 3으로 해서 key(SkuCode) , value(fixprice) 일치하는지 확인
                 int ranFixPrice = rand.nextInt(100) * 100;
 
                 Map.Entry<String, Integer> fixSkuCode = chechSkuCode(ranSkuCode, ranFixPrice);
